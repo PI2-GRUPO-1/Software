@@ -3,8 +3,8 @@
 using namespace std;
 
 Node::Node(string locationX, string locationY, string locationZ){
-    locationX = locationX;
-    locationY = locationY;
-    locationZ = locationZ;
+    this->locationX = locationX;
+    this->locationY = locationY;
+    this->locationZ = locationZ;
     myTime = time(NULL);
 }

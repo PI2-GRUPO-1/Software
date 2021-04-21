@@ -8,12 +8,12 @@
 using namespace std;
 
 class Node{
-private:    
+public:   
     string locationX;
     string locationY;
     string locationZ;
     time_t myTime;
-public:
+
     Node(string locationX,string locationY ,string locationZ);
 };
 #endif

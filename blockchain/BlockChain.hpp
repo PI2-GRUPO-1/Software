@@ -11,9 +11,9 @@
 using namespace std;
 
 class BlockChain{
-private:
-    vector<Node> chain;
 public:
+    vector<Node> chain;
+    
     BlockChain();
 
     void addNode(Node node);
