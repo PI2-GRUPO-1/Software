@@ -13,9 +13,10 @@ using namespace std;
 class BlockChain{
 public:
     vector<Node> chain;
-    
+
     BlockChain();
 
     void addNode(Node node);
+    Node lastNode();
 };
 #endif

@@ -6,7 +6,7 @@ int main(){
     BlockChain bChain = BlockChain();
     for (int i = 0;i<10;i++){
         string cord =  to_string(i);
-        Node block = Node(cord,cord,cord);
+        Node block = Node(cord,cord,cord,bChain.lastNode().hash);
         bChain.addNode(block);
     }
     for (Node x : bChain.chain){
@@ -18,6 +18,10 @@ int main(){
             << x.locationZ 
             <<" time: "
             << ctime(&x.myTime) 
+            << " hash: "
+            << x.hash
+            << " preHash: "
+            << x.preHash
             << endl;
     }
     return 0;

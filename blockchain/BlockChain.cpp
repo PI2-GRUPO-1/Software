@@ -11,11 +11,16 @@ BlockChain::BlockChain(){
     time_t myTime = time(NULL);
     Node node = Node(locationX, 
                     locationY, 
-                    locationZ);
+                    locationZ,
+                    "init");
 
     addNode(node);
 }
 
 void BlockChain::addNode(Node node){
     chain.push_back(node);
+}
+
+Node BlockChain::lastNode(){
+    return chain.back();
 }
