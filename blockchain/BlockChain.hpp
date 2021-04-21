@@ -5,10 +5,9 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <fstream>
 #include "Node.hpp"
 
-
-using namespace std;
 
 class BlockChain{
 public:
@@ -18,5 +17,6 @@ public:
 
     void addNode(Node node);
     Node lastNode();
+    void save(Node node);
 };
 #endif
