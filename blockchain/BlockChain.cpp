@@ -1,4 +1,5 @@
 #include "BlockChain.hpp"
+#include "cstdio"
 using namespace std;
 // using namespace BlockChain;
 
@@ -10,7 +11,13 @@ BlockChain::BlockChain(){
 
     if(myFile.is_open()){
         string line;
+
+        bool first = true;
         while(getline(myFile, line)){
+            if(first){
+                first = false;
+                continue;
+            }
             auto resVector = split(line, ';');
             Node node = Node(resVector[0],
                                 resVector[1],
@@ -18,8 +25,9 @@ BlockChain::BlockChain(){
                                 resVector[3],
                                 resVector[4],
                                 resVector[5]);
-            addNode(node);
+            chain.push_back(node);
         }
+        myFile.close();
     }
     else{
         string locationX = "init",
@@ -51,15 +59,15 @@ void BlockChain::save(Node node){
         temp_time.pop_back();
         myFile
             << node.hash
-            << "; " 
+            << ";" 
             << node.preHash 
-            << "; "
+            << ";"
             << temp_time
-            << "; "
+            << ";"
             << node.locationX
-            << "; "
+            << ";"
             << node.locationY
-            << "; "
+            << ";"
             << node.locationZ
             << ";"
             << endl;
