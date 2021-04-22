@@ -19,5 +19,7 @@ public:
     time_t myTime;
     
     Node(string locationX,string locationY ,string locationZ, string preHash);
+    Node(string hash,string preHash, string myTime, string locationX,string locationY ,string locationZ);
+    time_t parseToTime(string myTime);
 };
 #endif

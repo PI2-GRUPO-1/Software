@@ -18,5 +18,6 @@ public:
     void addNode(Node node);
     Node lastNode();
     void save(Node node);
+    vector<std::string> split(const string& text, char sep);
 };
 #endif
