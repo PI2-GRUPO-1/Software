@@ -3,25 +3,30 @@ import hashlib
 import time
 import csv
 import datetime as dt
+import asyncio
+import os
 
-class Blockchain:
+class Blockchain():
     chain: list
+    emergency : bool
+    pathFile : str
 
-    def __init__(self):
+    def __init__(self, emergency : bool, pathFile : str):
+        self.emergency = emergency
+        self.pathFile = pathFile
         try: 
             self.chain = []
 
-            with open("blockchain_data.csv", "r") as fp:
+            with open(self.pathFile, "r") as fp:
                 reader = csv.DictReader(fp, delimiter=';')
                 self.chain = list(reader)
                 for x in self.chain:
                     t = dt.datetime.strptime(x['time'], "%a %b %d %H:%M:%S %Y")              
                     x['time'] = t.timestamp()
-                print(self.chain)
 
 
         except OSError:
-            with open("blockchain_data.csv", "w") as fp:
+            with open(self.pathFile, "w") as fp:
                 fp.write("hash;preHash;time;locationX;locationY;locationZ;\n")
                 actualTime = time.time()
                 hashDigest = self.digest(actualTime, 'init')
@@ -36,7 +41,7 @@ class Blockchain:
                 }]
 
     def save(self, dicto:dict):
-        with open("blockchain_data.csv", "a") as fp:
+        with open(self.pathFile, "a") as fp:
             fp.write(f"{dicto['hash']};{dicto['preHash']};{dicto['time']};{dicto['locationX']};{dicto['locationY']};{dicto['locationZ']};\n")
     
     def addNode(self, dicto:dict):
@@ -51,8 +56,21 @@ class Blockchain:
         hashNode.update(f"{MyTime}{preHash}".encode())
         return hashNode.hexdigest()
 
+    def deleteFile(self):
+        os. remove(self.pathFile) 
+    
+    async def send(self, node):
+        print(node)
+
+    async def backTrack(self):
+        if self.emergency:
+            for x in reversed(self.chain):
+                await self.send(x)
+            
+
 if __name__ == "__main__":
-    Blockchain = Blockchain()
+    Blockchain = Blockchain(True, 'blockchain_data.csv')
+    Blockchain.emergency = True
     for i in range(10):
         MyTime = time.time()
         preHash = Blockchain.lastNode()['hash']
@@ -63,3 +81,6 @@ if __name__ == "__main__":
                 'locationY': i,
                 'locationZ': i}
         Blockchain.addNode(node)
+    
+    asyncio.run(Blockchain.backTrack())
+    # Blockchain.deleteFile()
