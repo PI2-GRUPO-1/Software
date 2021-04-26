@@ -11,7 +11,7 @@ class Blockchain():
     emergency : bool
     pathFile : str
 
-    def __init__(self, emergency : bool, pathFile : str):
+    def __init__(self, emergency = False, pathFile = 'blockchain_data.csv'):
         self.emergency = emergency
         self.pathFile = pathFile
         try: 
