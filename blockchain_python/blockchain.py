@@ -14,6 +14,7 @@ class Blockchain():
     def __init__(self, emergency = False, pathFile = 'blockchain_data.csv'):
         self.emergency = emergency
         self.pathFile = pathFile
+        self._nounce = 0
         try: 
             self.chain = []
 
@@ -52,8 +53,9 @@ class Blockchain():
         return self.chain[-1]
 
     def digest(self,MyTime, preHash):
+        self._nounce +=1
         hashNode = hashlib.sha256()
-        hashNode.update(f"{MyTime}{preHash}".encode())
+        hashNode.update(f"{MyTime}{preHash}{self._nounce}".encode())
         return hashNode.hexdigest()
 
     def deleteFile(self):
