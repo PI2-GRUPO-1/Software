@@ -83,6 +83,8 @@ if __name__ == "__main__":
                 'locationY': i,
                 'locationZ': i}
         Blockchain.addNode(node)
+        # print(Blockchain.lastNode())
     
-    asyncio.run(Blockchain.backTrack())
+    print(Blockchain.chain)
+    # asyncio.run(Blockchain.backTrack())
     # Blockchain.deleteFile()
